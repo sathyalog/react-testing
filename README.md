@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+## React-testing
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Jest Vs RTL
 
-## Available Scripts
+Jest:
+1. Jest is a javascript testing framework
+2. Jest is a test runner that finds tests, run the tests, determines whether the tests are passed or failed and reports it back in a human readable manner.
 
-In the project directory, you can run:
+RTL:
+1. Javascript testing utility that provides virtual DOM for testing react components
+2. RTL provides a virtual DOM which can use to interact with and verify the behavior of a react component
+3. Testing library is infact a family of packages which helps test UI components
+4. Core library is called DOM testing library and RTL is simply a wrapper around this core library to test react applications in an easier way
 
-### `npm start`
+Types of tests
+1. Unit tests - Focus is on testing the individual building blocks of an application such as a class or a function or a component.
+Each unit or building block is tested in isolation, independent of other units
+dependencies are mocked
+2. Integration tests - Focus is on testing a combination of units and ensuring they work together
+3. E2E tests - Focus is on testing the entire application flow and ensuring it works as designed from scratch to finish. Involves in react UI, a real backend database/real services.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Code coverage metrics
+A metic that can help you understand how much of your software code is tested
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Statement coverage: How many of the statements in the software code have been executed.
+2. Branches coverage: How many of the branches of the control structures(if statement for instance) have been executed.
+3. Function coverage: How many of the functions defined have been called and finally
+4. Line coverage: How many of lines of source code have been tested
 
-### `npm test`
+# Configuration
+"coverage": "react-scripts test --coverage --watchAll --collectCoverageFrom='src/components/**/*.{ts,tsx}' --collectCoverageFrom='!src/components/**/*.{types,constants, stories}.{ts,tsx}'"
+Here we are trying to collect the coverage from src/components folder having files with ts,tsx extensions.
+Also we are ignoring the files like greet.types.ts(x), constants, stories from src/components.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# What to test?
+Fundamentals:
+1. Test component renders
+2. Test component renders with props
+3. Test component renders in different states
+4. Test component reacts to events
 
-### `npm run build`
+# What not to test?
+1. Implementation details
+2. 3rd party code like npm libraries
+3. Code that is not important from user point of view like date format how you show using utils etc.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# RTL Queries
+ Every test we write generally involves the following basic steps
+ 1. Render the component
+ 2. Find an element rendered by the component
+ 3. Assert againts the element found in step2 which will pass or fail the test
+ To render the component, we use the render method from RTL
+ For assertion, we use expect passing in a value and combine it with a matcher function from jest or jest-dom
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ RTL Queries comes into the picture here..
+ Queries are the methods that testing library provides to find elements on the page
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ Find a single element on the page, we have getBy..,queryBy..,findBy..
+ To find multiple elements on page, we have getAllBy..,queryAllBy..,findAllBy..
+ Suffix for findBy.. or any method is Role, LabelText, Placeholder
